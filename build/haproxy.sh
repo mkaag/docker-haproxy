@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/sh
 set -e
 
 HAPROXY_CONFIG=${HAPROXY_CONFIG:-/etc/haproxy/haproxy.cfg}
 
-/usr/sbin/haproxy -f ${HAPROXY_CONFIG}
+exec /usr/sbin/haproxy -f ${HAPROXY_CONFIG}
