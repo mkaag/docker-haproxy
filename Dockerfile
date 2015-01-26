@@ -21,8 +21,6 @@ ADD build/policy-rc.d /usr/sbin/policy-rc.d
 # Disable SSH
 RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 
-CMD ["/sbin/my_init"]
-
 # Haproxy Installation
 ENV HAPROXY_CONFIG /etc/haproxy/haproxy.cfg
 ENV SSL_CERT /etc/ssl/private/server.pem
@@ -48,6 +46,8 @@ RUN chmod +x /etc/service/haproxy/run
 
 EXPOSE 80 443 1936
 VOLUME ["/etc/ssl"]
+
+CMD ["/sbin/my_init"]
 # End Haproxy
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
