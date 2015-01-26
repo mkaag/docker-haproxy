@@ -34,13 +34,10 @@ RUN \
 
 RUN \
     apt-get install -qqy --no-install-recommends haproxy; \
-    sed -i 's/^ENABLED=.*/ENABLED=1/' /etc/default/haproxy; \
-    sed -i 's/^#$ModLoad imudp/$ModLoad imudp/' /etc/rsyslog.conf; \
-    sed -i 's/^#$UDPServerRun 514/$UDPServerRun 514/' /etc/rsyslog.conf; \
-    sed -i '/$UDPServerRun 514/a \$UDPServerAddress 127.0.0.1' /etc/rsyslog.conf; \
     touch /var/log/haproxy.log; \
     chown haproxy: /var/log/haproxy.log
 
+ADD build/syslog-ng.conf /etc/syslog-ng/conf.d/haproxy.conf
 ADD build/haproxy.sh /etc/service/haproxy/run
 RUN chmod +x /etc/service/haproxy/run
 
